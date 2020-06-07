@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import CharacterList from './CharacterList';
 
 function App() {
 
@@ -347,6 +348,110 @@ const triple = multipleFunction(3);
 console.log(triple(5)); // 15
 
 
+// 型のバリエーション
+
+let number: number = 3;
+
+if (number) {console.log('`number` is true')}
+
+// strictオプションをtrueにしてるためエラーが出る。
+// number = null;
+
+// typeof 演算子を使うと、文 字列でその変数の型を教えてくれるんだけど、
+// 定義で let s: string = 'foo'; のように指定しなくて も string 型になってるのがわかるでしょ?
+// こんな感じで、わざわざ型を指定しなくてもその型が明らかな場合は、処理系が推測して適切な型 をつけてくれる。これを『型推論』と呼ぶ
+let string = 'foo';
+console.log(typeof string)
+
+let i: number | null = 1;
+
+console.log(i);
+
+i = null;
+console.log(i);
+
+let some: number | string | undefined = 'bar';
+
+console.log(some);
+
+some = undefined;
+
+console.log(some);
+
+
+let pet: 'cat' | 'dog' | 'rabbit' = 'dog';
+
+console.log(pet);
+
+pet = 'cat';
+
+console.log(pet);
+
+
+// any型の変数
+
+let val: any = 100;
+
+console.log(val);
+
+val = 'buz';
+
+console.log(val);
+
+
+const greetInEnglish = (friend: 'serval' | 'caracal' | 'cheetah') => {
+  switch (friend) {
+    case 'serval':
+      return 'Hello, Serval!';
+    case 'caracal':
+      return 'Hello, Caracal!';
+    case 'cheetah':
+      return 'Hello, Cheetah!';
+    default:
+      const check: never = friend;
+  }
+};
+
+console.log(greetInEnglish('serval')); // Hello, Serval!
+
+
+// オブジェクトの型について
+
+const john: {name: string, age: number } = { name: 'John', age: 25 };
+
+interface User {
+  name: string;
+  age?: number;
+}
+
+const jane: User = {name: 'Jane', age: 27 };
+
+const jack: User = {name: 'Jack'};
+
+console.log(jack);
+
+type Person = User;
+
+const rick: Person = {name: 'Rick', age: 31 };
+
+//type はインターフェース型を代入するためのものでしょうか」
+ // 「うん、それも正解。これは Type Alias といって、インターフェース型に別の名前をつけられるもの なんだけど、単独で使うより型同士の合成時に使われることが多いね。こんな感じに」
+
+ interface Foo { hoge?:number, fuga: string};
+ interface Bar { hoge: number };
+ interface Buz { piyo: string };
+
+ type FooBar1 = Foo & Bar;    // { hoge: number, fuga: string }
+ type FooBar2 = Foo | Bar;   // { hoge?: number, fuga: string } or { hoge: number }
+ type FooBuz1 = Foo & Buz;   // { hoge?: number, fuga: string, piyo: string }
+ type FooBuz2 = Foo | Buz;  // { hoge?: number, fuga: string } or { piyo: string };
+ type BarFooBuz = Bar & (Foo | Buz);   // { hoge: number, fuga: string } or { hoge: number, piyo: string }
+
+
+
+ const characters = [ {name: "hugahuga", age: 23}, { name: "hogehoge", age: 18}]
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -363,6 +468,7 @@ console.log(triple(5)); // 15
         >
           Learn React
         </a>
+        <CharacterList characters={characters} school={'紫野'}></CharacterList>
       </header>
     </div>
   );

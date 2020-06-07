@@ -10,6 +10,9 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    // strict オプションが true にな ってるでしょう? 
+    // これは strictNullChecks を始めとする strict 系のオプションをまとめて設定するもので、
+    // 今のCreate React Appではデフォルトでtrueになってるの。だからNull代入で怒られる
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
